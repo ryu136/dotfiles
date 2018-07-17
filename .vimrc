@@ -44,11 +44,7 @@ set grepprg=grep\ -nh
 "inoremap <C-l> <Right>
 
 "Ctrl+jキーでESCキー
-<<<<<<< HEAD
 inoremap <silent> <C-j> <Esc>
-=======
-inoremap <silent> <C-e> <Esc>
->>>>>>> origin/master
 ""}}}
 
 ""===== エンコーディング設定 ====={{{
