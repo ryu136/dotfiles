@@ -38,13 +38,13 @@ set grepprg=grep\ -nh
 
 ""=====キー入力====={{{
 "入力モード時のカーソル移動
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
+"inoremap <C-j> <Down>
+"inoremap <C-k> <Up>
+"inoremap <C-h> <Left>
+"inoremap <C-l> <Right>
 
-"Ctrl+mキーでESCキー
-inoremap <silent> <C-e> <Esc>
+"Ctrl+jキーでESCキー
+inoremap <silent> <C-j> <Esc>
 ""}}}
 
 ""===== エンコーディング設定 ====={{{
