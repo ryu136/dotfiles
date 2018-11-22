@@ -12,6 +12,7 @@ set fenc=utf-8 "文字コードを指定
 set virtualedit=onemore "カーソルを行末の一つ先まで移動可能にする
 set autoindent "自動インデント
 set tabstop=4 "tabのの幅設定
+set expandtab
 set shiftwidth=2 "自動的に入力されたインデントの空白をつ2文に設定
 set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮ "不可視文字の指定
 "set whichwrap=b,s,h,l,<,>,[,],~ "行頭、行末で行のカーソル移動を可能にする
@@ -20,7 +21,7 @@ set backspace=indent,eol,start "バックスペースでの行移動を可能に
 "nnoremap k gk "表示上の行移動
 ""}}}
 
-""=====検索設定====={{{
+""===== 検索設定 ====={{{
 set ignorecase "大文字/小文字の区別なし
 set smartcase "検索文字列に大文字が入っている場合は区別する
 set wrapscan "最後まで検索したら最初の行に戻る
@@ -36,7 +37,47 @@ set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
 ""}}}
 
-""=====キー入力====={{{
+
+""===== 画面分割 ====={{{
+nnoremap s <Nop>
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap sJ <C-w>J
+nnoremap sK <C-w>K
+nnoremap sL <C-w>L
+nnoremap sH <C-w>H
+nnoremap sn gt
+nnoremap sp gT
+nnoremap sr <C-w>r
+nnoremap s= <C-w>=
+nnoremap sw <C-w>w
+nnoremap so <C-w>_<C-w>|
+nnoremap sO <C-w>=
+nnoremap sN :<C-u>bn<CR>
+nnoremap sP :<C-u>bp<CR>
+nnoremap st :<C-u>tabnew<CR>
+nnoremap sT :<C-u>Unite tab<CR>
+"nnoremap ss :<C-u>sp<CR>
+"nnoremap sv :<C-u>vs<CR>
+nnoremap sq :<C-u>q<CR>
+nnoremap sQ :<C-u>bd<CR>
+nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
+nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
+
+"call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
+"call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
+"call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
+"call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
+"call submode#map('bufmove', 'n', '', '>', '<C-w>>')
+"call submode#map('bufmove', 'n', '', '<', '<C-w><')
+"call submode#map('bufmove', 'n', '', '+', '<C-w>+')
+"call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+""}}}
+
+
+""===== キー入力 ====={{{
 "入力モード時のカーソル移動
 "inoremap <C-j> <Down>
 "inoremap <C-k> <Up>
