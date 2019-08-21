@@ -22,6 +22,21 @@ autocmd InsertLeave * set nopaste
 "nnoremap k gk "表示上の行移動
 ""}}}
 
+""===== indent ====={{{
+" ファイルタイプ検出を有効にする
+filetype on
+
+augroup vimrc
+    " 以前の autocmd コマンドをクリア
+    autocmd!
+
+    " C/C++/Java 言語系のファイルタイプが設定されたら cindent モードを有効にする
+    autocmd FileType c,cpp,java  setl cindent
+    autocmd FileType c,cpp,java  setl expandtab tabstop=4 shiftwidth=4 softtabstop=4 shiftround
+augroup END
+""}}}
+
+
 ""===== 検索設定 ====={{{
 set ignorecase "大文字/小文字の区別なし
 set smartcase "検索文字列に大文字が入っている場合は区別する
@@ -98,6 +113,12 @@ set fileencoding=utf-8
 set fileencodings=utf-8,euc-jp,sjis,utf-8
 set fileformats=unix,dos,mac
 ""}}}
+
+
+""====タグジャンプ=====""
+nnoremap <C-l> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-k> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
+
 
 """====== 行と列の強調表示 ====={{{
 "" 行を強調表示
