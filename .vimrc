@@ -14,12 +14,23 @@ set autoindent "自動インデント
 set tabstop=4 "tabのの幅設定
 set expandtab
 set shiftwidth=2 "自動的に入力されたインデントの空白をつ2文に設定
-set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮ "不可視文字の指定
+"set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮ "不可視文字の指定
 "set whichwrap=b,s,h,l,<,>,[,],~ "行頭、行末で行のカーソル移動を可能にする
 set backspace=indent,eol,start "バックスペースでの行移動を可能にする
 autocmd InsertLeave * set nopaste
 "nnoremap j gj "表示上の行移動
 "nnoremap k gk "表示上の行移動
+
+" insert modeでカーソルを縦棒に変更 "
+if has('vim_starting')
+    " 挿入モード時に非点滅の縦棒タイプのカーソル
+    let &t_SI .= "\e[6 q"
+    " ノーマルモード時に非点滅のブロックタイプのカーソル
+    let &t_EI .= "\e[2 q"
+    " 置換モード時に非点滅の下線タイプのカーソル
+    let &t_SR .= "\e[4 q"
+endif
+
 ""}}}
 
 ""===== indent ====={{{
@@ -115,10 +126,10 @@ set fileformats=unix,dos,mac
 ""}}}
 
 
-""====タグジャンプ=====""
+""===== タグジャンプ ====={{{
 nnoremap <C-l> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-k> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
-
+"}}}
 
 """====== 行と列の強調表示 ====={{{
 "" 行を強調表示
@@ -128,6 +139,31 @@ nnoremap <C-k> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
 """highlight CursorLine gui=underline guifg=NONE guibg=NONE
 "" 列を強調表示
 "set cursorcolumn
+"""}}}
+
+""===== neovim setting ====={{{
+set runtimepath+=~/path/to/deoplete.nvim/
+let g:deoplete#enable_at_startup = 1
+""}}}
+
+
+"""====== Vdebug  ====={{{
+let g:vdebug_options= {
+\    "port" : 9001,
+\    "timeout" : 20,
+\    "on_close" : 'detach',
+\    "break_on_open" : 0,
+\    "remote_path" : "",
+\    "local_path" : "",
+\    "debug_window_level" : 0,
+\    "debug_file_level" : 0,
+\    "debug_file" : "",
+\    "path_maps" : {
+\       '/home/yourpath/web' : '/Users/'.$USER.'/workspace/web',
+\    },
+\    "window_arrangement" : ["DebuggerWatch", "DebuggerStack"]
+\}
+let g:vdebug_force_ascii = 1
 """}}}
 
 """-------------------- rainbow_parentheses -------------------------------{{{
@@ -163,4 +199,50 @@ nnoremap <C-k> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
 "au Syntax * RainbowParenthesesLoadBraces	"{}
 """}}}
 
+
 ""==============================================================================
+
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
+endif
+
+" Required:
+set runtimepath+=/Users/ryuta-sh/.cache/dein/repos/github.com/Shougo/dein.vim
+
+" Required:
+if dein#load_state('/Users/ryuta-sh/.cache/dein')
+  call dein#begin('/Users/ryuta-sh/.cache/dein')
+
+  " Let dein manage dein
+  " Required:
+  call dein#add('/Users/ryuta-sh/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+  " Add or remove your plugins here like this:
+  "call dein#add('Shougo/neosnippet.vim')
+  "call dein#add('Shougo/neosnippet-snippets')
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+""" install below plugin 
+call dein#add('joonty/vdebug')
+call dein#add('Shougo/neosnippet.vim')
+call dein#add('Shougo/neosnippet-snippets')
+call dein#add('thinca/vim-quickrun')
+
+"End dein Scripts-------------------------
+
+
+
