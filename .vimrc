@@ -1,3 +1,15 @@
+
+
+
+""===== 一般設定 ====={{{
+"set directory=$HOME/.vim/swap// "swapファイルの保存場所指定
+"set undofile "全てのファイルについて永続アンドゥを有効化
+"if !isdirectory(expand("$home/.vim/undodir"))
+"  call mkdir(expand("$home/.vim/undodir"), "p")
+"endif
+""}}}
+
+
 ""===== 表示設定 ====={{{
 syntax on "コードに色をつける
 set number "行数表示
@@ -7,13 +19,22 @@ set wrap "行の折り返し
 set scrolloff=20
 ""}}}
 
+
+""====== Color Scheme ====={{{
+colorscheme darkblue
+" - Colorscheme List - "
+"blue, darkblue, default, delek, desert, elflord, evening, industry, koehler, 
+"morning, murhpy, pablo, peachpuff, ron, shine, slate, torte, zellner
+"""}}}
+
+
 ""===== 文字、カーソルの移動 ======{{{
 set fenc=utf-8 "文字コードを指定
 set virtualedit=onemore "カーソルを行末の一つ先まで移動可能にする
 set autoindent "自動インデント
 set tabstop=4 "tabのの幅設定
 set expandtab
-set shiftwidth=2 "自動的に入力されたインデントの空白をつ2文に設定
+set shiftwidth=2 "自動的に入力されたインデントの空白をつ2文字に設定
 set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮ "不可視文字の指定
 "set whichwrap=b,s,h,l,<,>,[,],~ "行頭、行末で行のカーソル移動を可能にする
 set backspace=indent,eol,start "バックスペースでの行移動を可能にする
@@ -22,18 +43,20 @@ autocmd InsertLeave * set nopaste
 "nnoremap k gk "表示上の行移動
 ""}}}
 
+
 ""===== indent ====={{{
 " ファイルタイプ検出を有効にする
-filetype on
+"filetype on
+filetype plugin indent on
 
-augroup vimrc
-    " 以前の autocmd コマンドをクリア
-    autocmd!
-
-    " C/C++/Java 言語系のファイルタイプが設定されたら cindent モードを有効にする
-    autocmd FileType c,cpp,java  setl cindent
-    autocmd FileType c,cpp,java  setl expandtab tabstop=4 shiftwidth=4 softtabstop=4 shiftround
-augroup END
+"augroup vimrc
+"    " 以前の autocmd コマンドをクリア
+"    autocmd!
+"
+"    " C/C++/Java 言語系のファイルタイプが設定されたら cindent モードを有効にする
+"    autocmd FileType c,cpp,java  setl cindent
+"    autocmd FileType c,cpp,java  setl expandtab tabstop=4 shiftwidth=4 softtabstop=4 shiftround
+"augroup END
 ""}}}
 
 
@@ -129,6 +152,8 @@ nnoremap <C-k> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
 "" 列を強調表示
 "set cursorcolumn
 """}}}
+
+
 
 """-------------------- rainbow_parentheses -------------------------------{{{
 "let g:rbpt_colorpairs = [
