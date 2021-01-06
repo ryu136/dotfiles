@@ -139,7 +139,7 @@ function memo() {
 }
 
 function backcp() {
-    cp -p $1 $1.`date "+%Y%m%d_%H%M%S"`
+    cp -p $1 backup_$1.`date "+%Y%m%d_%H%M%S"`
 }
 
 #read_bookディレクトリに新しいファイルを作成する
