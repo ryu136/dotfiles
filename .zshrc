@@ -122,11 +122,26 @@ alias mkdir='mkdir -p'
 alias ..='c ../'
 alias back='pushd'
 alias diff='diff -U1'
+# My alias
+alias todo='vim ~/Desktop/todo/todo.md'
 
 
 # -----------------------------
 # My Function
 # -----------------------------
+function memo() {
+    cd ~/Memo
+    filename=`date "+%Y%m%d-Memo.md"`
+    if [ ! -f $filename ];then
+      date "+# %Y%m%d-Memo" > $filename
+    fi
+    vim $filename
+}
+
+function backcp() {
+    cp -p $1 backup_$1.`date "+%Y%m%d_%H%M%S"`
+}
+
 #read_bookディレクトリに新しいファイルを作成する
 function readbook() {
     cd ~/Documents/read_book
