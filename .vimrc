@@ -1,5 +1,4 @@
-
-
+"# vimrc   
 
 ""===== 一般設定 ====={{{
 "set directory=$HOME/.vim/swap// "swapファイルの保存場所指定
@@ -17,6 +16,7 @@ set title "編集中のファイル名の表示
 set showmatch "括弧入力時に対応する括弧を示す
 set wrap "行の折り返し
 set scrolloff=20
+set foldmethod=indent "indent箇所を折りたたんで表示
 ""}}}
 
 
@@ -77,7 +77,7 @@ set grepprg=grep\ -nh
 ""}}}
 
 
-""===== 画面分割 ====={{{
+""===== ウィンドウ移動 ====={{{
 nnoremap s <Nop>
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
@@ -87,13 +87,15 @@ nnoremap sJ <C-w>J
 nnoremap sK <C-w>K
 nnoremap sL <C-w>L
 nnoremap sH <C-w>H
-nnoremap sn gt
-nnoremap sp gT
 nnoremap sr <C-w>r
-nnoremap s= <C-w>=
+"window resizeでは、行頭に数字を入力することで一気にresize可能
+nnoremap s= <C-w>= 
+nnoremap s- <C-w>-
+nnoremap s+ <C-w>+
+nnoremap s< <C-w><
+nnoremap s> <C-w>>
 nnoremap sw <C-w>w
 nnoremap so <C-w>_<C-w>|
-nnoremap sO <C-w>=
 nnoremap sN :<C-u>bn<CR>
 nnoremap sP :<C-u>bp<CR>
 nnoremap st :<C-u>tabnew<CR>
@@ -105,14 +107,8 @@ nnoremap sQ :<C-u>bd<CR>
 nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
 nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
 
-"call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-"call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-"call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-"call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-"call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-"call submode#map('bufmove', 'n', '', '<', '<C-w><')
-"call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-"call submode#map('bufmove', 'n', '', '-', '<C-w>-')
+command! Bd :bp | :sp | :bn | :bd
+
 ""}}}
 
 
@@ -151,6 +147,12 @@ nnoremap <C-k> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
 """highlight CursorLine gui=underline guifg=NONE guibg=NONE
 "" 列を強調表示
 "set cursorcolumn
+"""}}}
+
+
+"""====== プラグイン ====={{{
+packloadall  "全てのプラグインをロードする
+silent! helptags ALL  "すべてのプラグインようにヘルプファイルをロードする
 """}}}
 
 
