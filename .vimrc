@@ -6,6 +6,14 @@
 "if !isdirectory(expand("$home/.vim/undodir"))
 "  call mkdir(expand("$home/.vim/undodir"), "p")
 "endif
+set clipboard=unnamed, "システムクリップボード (*)にコピー
+let mapleader = "\<space>"
+
+colorscheme darkblue
+" - Colorscheme List - "
+"blue, darkblue, default, delek, desert, elflord, evening, industry, koehler, 
+"morning, murhpy, pablo, peachpuff, ron, shine, slate, torte, zellner
+"
 ""}}}
 
 
@@ -20,14 +28,6 @@ set foldmethod=indent "indent箇所を折りたたんで表示
 ""}}}
 
 
-""====== Color Scheme ====={{{
-colorscheme darkblue
-" - Colorscheme List - "
-"blue, darkblue, default, delek, desert, elflord, evening, industry, koehler, 
-"morning, murhpy, pablo, peachpuff, ron, shine, slate, torte, zellner
-"""}}}
-
-
 ""===== 文字、カーソルの移動 ======{{{
 set fenc=utf-8 "文字コードを指定
 set virtualedit=onemore "カーソルを行末の一つ先まで移動可能にする
@@ -39,8 +39,7 @@ set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮ "不可視文字の指�
 "set whichwrap=b,s,h,l,<,>,[,],~ "行頭、行末で行のカーソル移動を可能にする
 set backspace=indent,eol,start "バックスペースでの行移動を可能にする
 autocmd InsertLeave * set nopaste
-"nnoremap j gj "表示上の行移動
-"nnoremap k gk "表示上の行移動
+
 ""}}}
 
 
@@ -71,7 +70,8 @@ nnoremap [q :cprevious<CR>      "前へ
 nnoremap ]q :cnext<CR>          "次へ
 nnoremap [Q :<C-u>cfirst<CR>    "最初へ
 nnoremap ]Q :<C-u>clast<CR>     "最後へ
-""-   -   -   -   -   -   grep検索を設定する -   -   -   -   -   -   -   -   - 
+
+"grep検索の設定
 set grepformat=%f:%l:%m,%f:%l%m,%f\ \ %l%m,%f
 set grepprg=grep\ -nh
 ""}}}
@@ -113,14 +113,26 @@ command! Bd :bp | :sp | :bn | :bd
 
 
 ""===== キー入力 ====={{{
-"入力モード時のカーソル移動
-"inoremap <C-j> <Down>
-"inoremap <C-k> <Up>
-"inoremap <C-h> <Left>
-"inoremap <C-l> <Right>
-
 "Ctrl+jキーでESCキー
 inoremap <silent> <C-j> <Esc>
+
+" Immediately add a closing quotes or braces in insert mode.
+"inoremap ' ''<esc>i
+"inoremap " ""<esc>i
+inoremap ( ()<esc>i
+inoremap { {}<esc>i
+inoremap [ []<esc>i
+
+"mapping Leader key
+noremap <leader>w :w<cr> 
+noremap <leader>n :NERDTreeToggle<cr> 
+
+"入力モード時のカーソル移動
+"inoremap <C-m> <Down>
+"inoremap <C-,> <Up>
+"inoremap <C-.> <Left>
+"inoremap <C-/> <Right>
+
 ""}}}
 
 ""===== エンコーディング設定 ====={{{
@@ -150,9 +162,35 @@ nnoremap <C-k> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
 """}}}
 
 
-"""====== プラグイン ====={{{
+"""====== Plugin Management ====={{{
+"
+"Install vim-plug if it's not already installed (Unix-only).
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
+    \ https://raw.github.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()  " Manage plugins with vim-plug.
+
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'mileszs/ack.vim'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+
+call plug#end()
 packloadall  "全てのプラグインをロードする
 silent! helptags ALL  "すべてのプラグインようにヘルプファイルをロードする
+
+"" === NERDTree === {{
+"autocmd VimEnter * NERDTree     " Enable NERDTree on Vim startup.
+" Autoclose NERDTree if it's the only open window left.
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
+   \ b:NERDTree.isTabTree()) | q | endif
+""}}
+
 """}}}
 
 
