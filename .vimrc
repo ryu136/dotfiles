@@ -1,4 +1,4 @@
-"# vimrc   
+"### RYU's VIMRC ###
 
 ""===== 一般設定 ====={{{
 "set directory=$HOME/.vim/swap// "swapファイルの保存場所指定
@@ -9,11 +9,6 @@
 set clipboard=unnamed, "システムクリップボード (*)にコピー
 let mapleader = "\<space>"
 
-colorscheme darkblue
-" - Colorscheme List - "
-"blue, darkblue, default, delek, desert, elflord, evening, industry, koehler, 
-"morning, murhpy, pablo, peachpuff, ron, shine, slate, torte, zellner
-"
 ""}}}
 
 
@@ -197,19 +192,22 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin()  " Manage plugins with vim-plug.
 
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'mileszs/ack.vim'
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'sjl/gundo.vim'
+Plug 'ctrlpvim/ctrlp.vim'                                       "Ctrl+pで曖昧検索
+Plug 'easymotion/vim-easymotion'                                "移動コマンド
+Plug 'mileszs/ack.vim'                                          "ack 統合
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }          "vim上でディレクトリの参照
+Plug 'tpope/vim-unimpaired'                                     "一連の便利なショートカット
+Plug 'tpope/vim-vinegar'                                        " - でnetrwを開く
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }         "補完プラグイン
+Plug 'sjl/gundo.vim'                                            "アンドゥツリーの可視化
 Plug 'tpope/vim-fugitive'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'                           "tmuxとの統合
 Plug 'tpope/vim-dispatch'
-Plug 'janko-m/vim-test'
-"Plug 'vim-syntastic/syntastic' "追加すると少し処理が重くなる
+Plug 'janko-m/vim-test'                                         "テスト検証のプラグイン
+"Plug 'vim-syntastic/syntastic' "pythonファイルのシンタクスチェック. 追加すると少し処理が重くなる
+Plug 'vim-scripts/ScrollColors'                                 "カラースキーム
+Plug 'flazz/vim-colorschemes'                                   "カラースキーム
+Plug 'vim-airline/vim-airline'                                  "ステータスラインの表示
 
 
 call plug#end()
@@ -263,6 +261,17 @@ autocmd filetype python setlocal errorformat=%f:%l:\ %m
 
 """}}}
 
+
+"""====== ColorScheme ====={{{
+set t_Co=256
+set background=dark
+colorscheme PaperColor
+" show colorscheme list "
+":colorscheme ctrl+D"
+
+" - my favorite colorscheme list - "
+" darkblue, 
+"""}}}
 
 """====== rainbow_parentheses ====={{{
 "let g:rbpt_colorpairs = [
