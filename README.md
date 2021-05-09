@@ -3,6 +3,9 @@
 ## descripton
 - .vimrc
 - .tmux.conf
+- .bashrc
+- .tcshrc
+- .zshrc
 
 ## Vim DIY-Plugin
 Location of DIY-Plugins 
