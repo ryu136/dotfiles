@@ -112,16 +112,16 @@ command! Bd :bp | :sp | :bn | :bd
 ""}}}
 
 
-""===== キー入力 ====={{{
+""===== Key Input ====={{{
 "Ctrl+jキーでESCキー
 inoremap <silent> <C-j> <Esc>
 
 " Immediately add a closing quotes or braces in insert mode.
 "inoremap ' ''<esc>i
 "inoremap " ""<esc>i
-inoremap ( ()<esc>i
-inoremap { {}<esc>i
-inoremap [ []<esc>i
+"inoremap ( ()<esc>i
+"inoremap { {}<esc>i
+"inoremap [ []<esc>i
 
 "mapping Leader key
 noremap <leader>w :w<cr> 
@@ -135,18 +135,41 @@ noremap <leader>n :NERDTreeToggle<cr>
 
 ""}}}
 
-""===== エンコーディング設定 ====={{{
+
+
+
+""===== Character Encoding ====={{{
 "if &comptable
 "	set nocomptable
 "endif
 set encoding=utf-8
-set fileencoding=utf-8
 set fileencodings=utf-8,euc-jp,sjis,utf-8
 set fileformats=unix,dos,mac
 ""}}}
 
 
-""====タグジャンプ=====""
+""===== Tag / Jump =====""
+noremap <leader>] :YcmCompleter GoTo<cr>
+set tags=.tags;$HOME  " Look for a tags file recursively in parent directories.
+
+"## universal-ctags_01
+function! s:execute_ctags() abort
+  let tag_name = '.tags'  " 探すタグファイル名
+  let tags_path = findfile(tag_name, '.;')  " ディレクトリを遡り、タグファイルを探し、パス取得
+  " タグファイルパスが見つからなかった場合
+  if tags_path ==# ''  
+    return
+  endif
+
+  let tags_dirpath = fnamemodify(tags_path, ':p:h')  " タグファイルのディレクトリパスを取得
+  " 見つかったタグファイルのディレクトリに移動して、ctagsをバックグラウンド実行（エラー出力破棄）
+  execute 'silent !cd' tags_dirpath '&& ctags -R -f' tag_name '2> /dev/null &'
+endfunction
+
+augroup ctags
+  autocmd!
+  autocmd BufWritePost * call s:execute_ctags()
+augroup END
 nnoremap <C-l> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <C-k> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
 
@@ -164,13 +187,14 @@ nnoremap <C-k> :vsplit<CR> :exe("tjump ".expand('<cword>'))<CR>
 
 """====== Plugin Management ====={{{
 "
+let g:plug_timeout = 300  " Increase vim-plug timeout for YouCompleteMe.
+
 "Install vim-plug if it's not already installed (Unix-only).
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
     \ https://raw.github.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-
 call plug#begin()  " Manage plugins with vim-plug.
 
 Plug 'ctrlpvim/ctrlp.vim'
@@ -179,10 +203,20 @@ Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'sjl/gundo.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-dispatch'
+Plug 'janko-m/vim-test'
+"Plug 'vim-syntastic/syntastic' "追加すると少し処理が重くなる
+
 
 call plug#end()
 packloadall  "全てのプラグインをロードする
 silent! helptags ALL  "すべてのプラグインようにヘルプファイルをロードする
+" 保存し終えたら :w | source $MYVIMRC | PlugInstall
+
 
 "" === NERDTree === {{
 "autocmd VimEnter * NERDTree     " Enable NERDTree on Vim startup.
@@ -191,11 +225,46 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") &&
    \ b:NERDTree.isTabTree()) | q | endif
 ""}}
 
+"" === YouCompleteMe === {{
+let g:ycm_global_ycm_extra_conf = '${HOME}/.ycm_extra_conf.py'
+let g:ycm_auto_trigger = 1
+let g:ycm_min_num_of_chars_for_completion = 3
+let g:ycm_autoclose_preview_window_after_insertion = 1
+set splitbelow
+""}}
+
+"" === Gundo === {{
+noremap <f5> :GundoToggle<cr>  " Map Gundo to <F5>.
+let g:gundo_prefer_python3 = 1
+""}}
+
+"" === vim-Test === {{
+let test#strategy = "dispatch"
+""}}
+
+"" === Syntastic === {{
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_pylint_exe = 'pylint3'
+""}}
+
 """}}}
 
 
+"""====== Build ====={{{
+" Use :make to run pylint for Python files.
+autocmd filetype python setlocal makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
+autocmd filetype python setlocal errorformat=%f:%l:\ %m
 
-"""-------------------- rainbow_parentheses -------------------------------{{{
+"""}}}
+
+
+"""====== rainbow_parentheses ====={{{
 "let g:rbpt_colorpairs = [
 "    \ ['lightmagenta',  'lightmagenta'],
 "    \ ['lightblue',  'lightblue'],

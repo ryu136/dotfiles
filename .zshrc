@@ -73,6 +73,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:manuals' separate-sections true
 # --prefix=/usr などの = 以降でも補完
 setopt magic_equal_subst
+# hubコマンド 自動補完設定
+fpath=(~/.zsh/completions $fpath) 
+autoload -U compinit && compinit
 
 
 # -----------------------------
@@ -98,23 +101,23 @@ setopt hist_verify
 # -----------------------------
 # Alias
 # -----------------------------
-# グローバルエイリアス
+# Grobal Alias
 alias -g L='| less'
 alias -g H='| head'
 alias -g G='| grep'
 alias -g GI='| grep -ri'
-# some more ls aliases
+# Local Alias
 alias ll='ls -lF'
 alias lla='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-# エイリアス
 alias so='source'
-alias v='vim'
 alias vi='vim'
 alias vz='vim ~/.zshrc'
+alias vv='vim ~/.vimrc'
 alias c='cdr'
-# historyに日付を表示
+alias ctags="`brew --prefix`/bin/ctags"
+# show date in history
 alias h='fc -lt '%f %t' 1'
 alias cp='cp -i'
 alias rm='rm -i'

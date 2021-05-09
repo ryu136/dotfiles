@@ -3,6 +3,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias ll='ls -i'
+alias ctags="`brew --prefix`/bin/ctags"
 
 
 if [ ${UID} -eq 0 ]; then
