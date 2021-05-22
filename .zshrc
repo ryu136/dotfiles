@@ -133,6 +133,7 @@ alias todo='vim ~/Desktop/todo/todo.md'
 # My Function
 # -----------------------------
 function memo() {
+    mkdir -p ~/Memo
     cd ~/Memo
     filename=`date "+%Y%m%d-Memo.md"`
     if [ ! -f $filename ];then

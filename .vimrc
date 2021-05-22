@@ -273,37 +273,4 @@ colorscheme PaperColor
 " darkblue, 
 """}}}
 
-"""====== rainbow_parentheses ====={{{
-"let g:rbpt_colorpairs = [
-"    \ ['lightmagenta',  'lightmagenta'],
-"    \ ['lightblue',  'lightblue'],
-"    \ ['lightcyan',  'lightcyan'],
-"    \ ['green',  'green'],
-"    \ ['brown',  'brown'],
-"    \ ['yellow',  'yellow'],
-"    \ ['red',  'darkred'],
-"    \ ['lightmagenta',  'lightmagenta'],
-"    \ ['lightblue',  'lightblue'],
-"    \ ['lightcyan',  'lightcyan'],
-"    \ ['green',  'green'],
-"    \ ['yellow',  'yellow'],
-"    \ ['brown',  'brown'],
-"    \ ['red',  'darkred'],
-"    \ ['lightmagenta',  'lightmagenta'],
-"    \ ['lightblue',  'lightblue'],
-"    \ ['lightcyan',  'lightcyan'],
-"    \ ['green',  'green'],
-"    \ ['yellow',  'yellow'],
-"    \ ['brown',  'brown'],
-"    \ ['red',  'darkred'],
-"    \ ]
-"let g:rbpt_max = 21
-"let g:rbpt_loadcmd_toggle = 1
-""Always On:
-"au VimEnter * RainbowParenthesesToggle		"Toggle it on/off
-"au Syntax * RainbowParenthesesLoadRounc		"(), the default when toggling
-"au Syntax * RainbowParenthesesLoadSquare	"[]
-"au Syntax * RainbowParenthesesLoadBraces	"{}
-"""}}}
-
 ""==============================================================================
