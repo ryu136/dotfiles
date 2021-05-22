@@ -1,6 +1,6 @@
 "### RYU's VIMRC ###
 
-""===== 一般設定 ====={{{
+""===== General ====={{{
 "set directory=$HOME/.vim/swap// "swapファイルの保存場所指定
 "set undofile "全てのファイルについて永続アンドゥを有効化
 "if !isdirectory(expand("$home/.vim/undodir"))
@@ -12,7 +12,7 @@ let mapleader = "\<space>"
 ""}}}
 
 
-""===== 表示設定 ====={{{
+""===== Display ====={{{
 syntax on "コードに色をつける
 set number "行数表示
 set title "編集中のファイル名の表示
@@ -23,7 +23,7 @@ set foldmethod=indent "indent箇所を折りたたんで表示
 ""}}}
 
 
-""===== 文字、カーソルの移動 ======{{{
+""===== Character, Moving cursor ======{{{
 set fenc=utf-8 "文字コードを指定
 set virtualedit=onemore "カーソルを行末の一つ先まで移動可能にする
 set autoindent "自動インデント
@@ -38,7 +38,7 @@ autocmd InsertLeave * set nopaste
 ""}}}
 
 
-""===== indent ====={{{
+""===== Indent ====={{{
 " ファイルタイプ検出を有効にする
 "filetype on
 filetype plugin indent on
@@ -54,7 +54,7 @@ filetype plugin indent on
 ""}}}
 
 
-""===== 検索設定 ====={{{
+""===== Search ====={{{
 set ignorecase "大文字/小文字の区別なし
 set smartcase "検索文字列に大文字が入っている場合は区別する
 set wrapscan "最後まで検索したら最初の行に戻る
@@ -72,7 +72,7 @@ set grepprg=grep\ -nh
 ""}}}
 
 
-""===== ウィンドウ移動 ====={{{
+""===== Moving Window ====={{{
 nnoremap s <Nop>
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
