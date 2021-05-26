@@ -125,6 +125,7 @@ alias mkdir='mkdir -p'
 alias ..='c ../'
 alias back='pushd'
 alias diff='diff -U1'
+alias tree='tree -N'
 # My alias
 alias todo='vim ~/Desktop/todo/todo.md'
 
