@@ -131,6 +131,13 @@ alias todo='vim ~/Desktop/todo/todo.md'
 
 
 # -----------------------------
+# Python
+# -----------------------------
+#eval "$(pyenv init -)"
+#if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+
+# -----------------------------
 # My Function
 # -----------------------------
 function memo() {
